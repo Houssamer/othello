@@ -106,7 +106,7 @@ void pion_machine(int pionMachine, int pions[10][10], int *scoreBlanc, int *scor
 
                 //diagonale a droite bas
                 for (int l = 1; l <= 9; l++) {
-                    if ((i - l <= 8 && i - l > 0) && (j + l <= 8)) {
+                    if ((i - l > 0) && (j + l <= 8)) {
                         int L = i-l;
                         int C = j+l;
                         if (!vide(L, C, pions)) {
@@ -127,7 +127,7 @@ void pion_machine(int pionMachine, int pions[10][10], int *scoreBlanc, int *scor
 
                 //diagonale a gauche haut
                 for (int l = 1; l <= 9; l++) {
-                    if ((i + l <= 8) && (j - l <= 8 && j - l > 0)) {
+                    if ((i + l <= 8) && (j - l > 0)) {
                         int L = i+l;
                         int C = j-l;
                         if (!vide(L, C, pions)) {
@@ -148,7 +148,7 @@ void pion_machine(int pionMachine, int pions[10][10], int *scoreBlanc, int *scor
 
                 //diagonale a gauche bas
                 for (int l = 1; l <= 9; l++) {
-                    if ((i-l<=8 && i-l>0) && (j-l<=8 && j-l>0)) {
+                    if ((i-l>0) && (j-l>0)) {
                         int L = i-l;
                         int C = j-l;
                         if (!vide(L, C, pions)) {

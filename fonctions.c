@@ -128,10 +128,14 @@ void start(bool *quit) {
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
-                    *quit = true;  //quitter la fenetre du jeu
+                    *quit = true;//quitter la fenetre du jeu
+                    SDL_Quit();
                     break;
                 case SDL_KEYDOWN:
                     switch (event.key.keysym.sym) {
+                        case SDLK_ESCAPE:
+                            *quit = true;
+                            break;
                         case SDLK_0 :  //faire appelle a la fonction qui stop la musique
                             stopMusic();
                             break;

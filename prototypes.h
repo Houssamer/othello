@@ -28,8 +28,12 @@ extern void posPion(const int positionX, const int positionY, const int ligne, c
 extern void pion_Update(const int ligne, const int colonne, int pions[10][10], const int pion, int *scoreBlanc, int *scoreNoir);
 extern void score(int pion, int *scoreBlanc, int *scoreNoir);
 extern bool jeuTermine(int pions[10][10]);
-extern void showGagnant(int scoreBlanc, int scoreNoir);
+extern void showGagnant(int scoreBlanc, int scoreNoir, bool *quit);
 extern void pion_machine(int pionMachine, int pions[10][10], int *scoreBlanc, int *scoreNoir);
+extern void MachineBlanc(int *positionX, int *positionY, int position[10][10][3], int pions [10][10], int *scoreBlanc, int *scoreNoir, int *joueur, bool *quit, SDL_Event *event);
+extern void MachineNoir(int *positionX, int *positionY, int position[10][10][3], int pions [10][10], int *scoreBlanc, int *scoreNoir, int *joueur, bool *quit, SDL_Event *event);
+extern void machineBlancStart(int *joueur);
+extern void machineNoirStart(int *joueur);
 
 #endif // PROTOTYPES
 

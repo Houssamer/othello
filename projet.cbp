@@ -53,7 +53,13 @@
 		<Unit filename="JoueurVsMachine.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="MachineBlanc.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="MachineFonctions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="MachineNoir.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="StartJ.c">

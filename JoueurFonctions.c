@@ -118,7 +118,7 @@ void pion_Update(const int ligne, const int colonne, int pions[10][10], const in
             }
         }
         for (int i = 1; i <=9; i++) { //parcourir les cases en diagonale a droite et sous-dessous
-            if ((ligne - i <= 8 && ligne - i > 0) && colonne + i <= 8) { //verifier si les deplacements ne sont pas au dela des bordures
+            if ((ligne - i > 0) && colonne + i <= 8) { //verifier si les deplacements ne sont pas au dela des bordures
                 int L = ligne - i;
                 int C = colonne + i;
                 if (!vide(L, C, pions)) { //verifier si les cases ne sont pas vides
@@ -158,7 +158,7 @@ void pion_Update(const int ligne, const int colonne, int pions[10][10], const in
             }
         }
         for (int i = 1; i <= 9; i++) { //parcourir les cases en diagonale a gauche au-dessus
-            if ((colonne-i <= 8 && colonne-i >0) && ligne + i <= 8) { //verifier si les deplacements sont possibles
+            if ((colonne-i >0) && ligne + i <= 8) { //verifier si les deplacements sont possibles
                 int L = ligne + i;
                 int C = colonne - i;
                 if (!vide(L, C, pions)) { //verifier si les cases ne sont pas vides
@@ -206,7 +206,7 @@ void pion_Update(const int ligne, const int colonne, int pions[10][10], const in
 
     if (colonne > 0 && ligne > 0) {
         for (int i=1; i <= 9; i++) { //parcourir les cases diagonales a gauche sous-dessous
-            if ((ligne-i <= 8 && ligne-i >0) && (colonne-i <= 8 && colonne-i >0)) { //verifier si les deplacements sont possibles
+            if ((ligne-i >0) && (colonne-i >0)) { //verifier si les deplacements sont possibles
                 int L = ligne - i;
                 int C = colonne - i;
                 if (!vide(L, C, pions)) { //verifier si les cases ne sont pas vides
@@ -248,7 +248,7 @@ bool jeuTermine(int pions[10][10]) { // verifier si l'othellier est remplie ou n
     return  termine;
 }
 
-void showGagnant (int scoreBlanc, int scoreNoir) { //afficher le joueur gagnant
+void showGagnant (int scoreBlanc, int scoreNoir, bool *quit) { //afficher le joueur gagnant
 
     TTF_Font *font = TTF_OpenFont("./fonts/PTN77F.ttf", 85); //le genre et la taille de la police utilise
 
@@ -286,6 +286,12 @@ void showGagnant (int scoreBlanc, int scoreNoir) { //afficher le joueur gagnant
     }
 
     SDL_RenderPresent(getrenderer());
+
+    TTF_CloseFont(font);
+
+    SDL_Delay(5000);
+
+    start(quit);
 
 
 }

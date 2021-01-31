@@ -7,45 +7,29 @@
 #include <stdbool.h>
 #include <math.h>
 
+
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_mixer.h>
 
 
-void gestion_inputs_Joueur(SDL_Event *event, bool *quit, int *positionX, int position[10][10][3], int *positionY,
-                           int *pion, int pions[10][10], int *Joueur, int *scoreBlanc, int *scoreNoir) {
+void MachineBlanc(int *positionX, int *positionY, int position[10][10][3], int pions [10][10], int *scoreBlanc, int *scoreNoir, int *joueur, bool *quit, SDL_Event *event) {
 
 
-    while (SDL_PollEvent(event)) {
-        switch (event->type) {
+while(SDL_WaitEvent(event)) {
+        switch(event->type) {
             case SDL_QUIT:
                 *quit = true;
                 break;
-                //quelque basiques entrees pour gerer l'interface
             case SDL_KEYDOWN:
                 switch (event->key.keysym.sym) {
                     case SDLK_ESCAPE:
+                        SDL_FlushEvents(100, 200);
                         start(quit);
                         break;
-                    case SDLK_0:
-                        stopMusic();
-                        break;
-                    case SDLK_KP_0:
-                        stopMusic();
-                        break;
-                    case SDLK_1:
-                        playMusic();
-                        break;
-                    case SDLK_KP_1:
-                        playMusic();
-                        break;
-                    default:
-                        printf("Wrong key\n");
-                        break;
                 }
-            //partie de la gestion de la souris aussi que la logique du jeu
-
             case SDL_MOUSEBUTTONDOWN:
+                    //partie de la gestion de la souris aussi que la logique du jeu
                     if (event->button.button == SDL_BUTTON_LEFT) {
                        double x = event->button.x;
                        double y = event->button.y;
@@ -84,6 +68,8 @@ void gestion_inputs_Joueur(SDL_Event *event, bool *quit, int *positionX, int pos
                                 case 8:
                                     *positionX = 500;
                                     break;
+                                default:
+                                    break;
                             }
                         switch (ligne) {
                             case 1:
@@ -110,22 +96,42 @@ void gestion_inputs_Joueur(SDL_Event *event, bool *quit, int *positionX, int pos
                             case 8:
                                 *positionY = 500;
                                 break;
+                            default:
+                                break;
                         }
                         position[ligne][colonne][0] = *positionX;
                         position[ligne][colonne][1] = *positionY;
-                        if (vide(ligne, colonne, pions)) {
-                            Joueur_Verification(Joueur, pion);
-                            posPion(*positionX, *positionY, ligne, colonne, pions, *pion, scoreBlanc, scoreNoir);
-                            pion_Update(ligne, colonne, pions, *pion, scoreBlanc, scoreNoir);
+                        if (*joueur == NOIR) {
+                            int pionJoueur = NOIR;
+                            int pionMachine = BLANC;
+                            if (vide(ligne, colonne, pions)) {
+                                posPion(*positionX, *positionY, ligne, colonne, pions, pionJoueur, scoreBlanc, scoreNoir);
+                                pion_Update(ligne, colonne, pions, pionJoueur, scoreBlanc, scoreNoir);
+                                pion_machine(pionMachine, pions, scoreBlanc, scoreNoir);
+                            }
+
+                            if (jeuTermine(pions)) {
+                                showGagnant(*scoreBlanc, *scoreNoir, quit);
+                            }
                         }
-                        if (jeuTermine(pions)) {
-                            showGagnant(*scoreBlanc, *scoreNoir, quit);
+                        else if (*joueur == BLANC) {
+                            int pionJoueur = BLANC;
+                            int pionMachine = NOIR;
+                            if (vide(ligne, colonne, pions)) {
+                                posPion(*positionX, *positionY, ligne, colonne, pions, pionJoueur, scoreBlanc, scoreNoir);
+                                pion_Update(ligne, colonne, pions, pionJoueur, scoreBlanc, scoreNoir);
+                                pion_machine(pionMachine, pions, scoreBlanc, scoreNoir);
+                            }
+                            if (jeuTermine(pions)) {
+                                showGagnant(*scoreBlanc, *scoreNoir, quit);
+                            }
                         }
+
 
                     }
-
-                }
-                break;
+            }
+        break;
         }
     }
 }
+

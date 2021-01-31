@@ -17,6 +17,8 @@ int main(int argc, char *argv[])
     Init("Othello");  //Initialisation de tous qu'on a besoin
 
     bool quit = false;
+
+
     start(&quit); //lancer l'interface de Bienvenue
 
 
